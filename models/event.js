@@ -6,6 +6,7 @@ const eventSchema = new Schema({
     date: {type: date, required: true},
     price: {type: Number, required: true},
     location: {type: String, required: true},
+    number_of_participants: {type: Number, required: true},
     flier_URL: {type: String},
 }, {
     timestamps:true
