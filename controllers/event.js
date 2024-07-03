@@ -44,14 +44,16 @@ export const postEvent = async(req,res,next) =>{
 }
 
 // Updating an event
-export const patchEvent = async(req,res,next) =>{
+export const patchEvent = async(req,res) =>{
     try {
+        const Price = req.body.price
+        console.log('request', Price)
         // updating details of an event
-        const updatedEvent = await EventModel.findByIdAndUpdate(req.params.id);
+        const updatedEvent = await EventModel.findByIdAndUpdate(req.params.id, {price: Price});
         // return response
         res.json(updatedEvent);
     } catch (error) {
-        next(error)
+        console.log(error)
     }
 }
 
