@@ -3,7 +3,6 @@ import {EventModel} from "../models/event.js";
 // getting all events 
 export const getEvents = async(req,res,next) =>{
     try {
-        console.log('hyuhy7uhyg')
         // Get events from database
         const allEvents = await EventModel.find();
         // Return all events as response
@@ -28,9 +27,6 @@ export const getEvent = async(req,res,next) =>{
 // Adding a new event
 export const postEvent = async(req,res,next) =>{
     try {
-        console.log('hyuhy7uhyg')
-        console.log(req.body);
-        console.log(req.file);
         // posting an event to the database
         const newEvent = await EventModel.create({
             ...req.body,
@@ -39,12 +35,12 @@ export const postEvent = async(req,res,next) =>{
         // return response
         res.status(201).json(newEvent);
     } catch (error) {
-        console.log(error);
+        next(error);
     }
 }
 
 // Updating an event
-export const patchEvent = async(req,res) =>{
+export const patchEvent = async(req,res, next) =>{
     try {
         const Price = req.body.price
         console.log('request', Price)
@@ -53,7 +49,7 @@ export const patchEvent = async(req,res) =>{
         // return response
         res.json(updatedEvent);
     } catch (error) {
-        console.log(error)
+        next(error)
     }
 }
 
