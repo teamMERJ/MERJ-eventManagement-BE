@@ -28,19 +28,24 @@ export const getEvent = async(req,res,next) =>{
 export const postEvent = async(req,res,next) =>{
     try {
         // posting an event to the database
-        const newEvent = await EventModel.create(req.body);
+        const newEvent = await EventModel.create({
+            ...req.body,
+            flier: req.file.filename
+        });
         // return response
-        res.json(newEvent);
+        res.status(201).json(newEvent);
     } catch (error) {
         next(error);
     }
 }
 
 // Updating an event
-export const patchEvent = async(req,res,next) =>{
+export const patchEvent = async(req,res, next) =>{
     try {
+        const Price = req.body.price
+        console.log('request', Price)
         // updating details of an event
-        const updatedEvent = await EventModel.findByIdAndUpdate(req.params.id);
+        const updatedEvent = await EventModel.findByIdAndUpdate(req.params.id, {price: Price});
         // return response
         res.json(updatedEvent);
     } catch (error) {
