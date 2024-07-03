@@ -3,6 +3,7 @@ import {EventModel} from "../models/event.js";
 // getting all events 
 export const getEvents = async(req,res,next) =>{
     try {
+        console.log('hyuhy7uhyg')
         // Get events from database
         const allEvents = await EventModel.find();
         // Return all events as response
@@ -27,12 +28,18 @@ export const getEvent = async(req,res,next) =>{
 // Adding a new event
 export const postEvent = async(req,res,next) =>{
     try {
+        console.log('hyuhy7uhyg')
+        console.log(req.body);
+        console.log(req.file);
         // posting an event to the database
-        const newEvent = await EventModel.create(req.body);
+        const newEvent = await EventModel.create({
+            ...req.body,
+            flier: req.file.filename
+        });
         // return response
-        res.json(newEvent);
+        res.status(201).json(newEvent);
     } catch (error) {
-        next(error);
+        console.log(error);
     }
 }
 
